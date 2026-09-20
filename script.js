@@ -1,385 +1,651 @@
-// ================================
-// NEXORA
-// Interactive JavaScript
-// ================================
+/* =========================================
+   NEXORA
+   JAVASCRIPT
+========================================= */
 
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+
+/* =========================================
+   PARTICLES
+========================================= */
+
+const canvas =
+    document.getElementById("particles");
+
+const ctx =
+    canvas.getContext("2d");
+
+
+let width = 0;
+let height = 0;
 
 let particles = [];
-let width;
-let height;
+
 
 function resizeCanvas() {
-  width = canvas.width = window.innerWidth;
-  height = canvas.height = window.innerHeight;
+
+    width =
+        canvas.width =
+        window.innerWidth;
+
+    height =
+        canvas.height =
+        window.innerHeight;
+
 }
 
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
 resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
 
-
-// ================================
-// PARTICLES
-// ================================
 
 function createParticles() {
 
-  particles = [];
+    particles = [];
 
-  const amount = window.innerWidth < 600 ? 45 : 90;
+    const amount =
+        window.innerWidth < 600
+            ? 45
+            : 90;
 
-  for (let i = 0; i < amount; i++) {
 
-    particles.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      size: Math.random() * 2 + 0.4,
-      speed: Math.random() * 0.35 + 0.08,
-      alpha: Math.random() * 0.7 + 0.2,
-      drift: (Math.random() - 0.5) * 0.2
-    });
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
 
-  }
+        particles.push({
+
+            x:
+                Math.random() *
+                width,
+
+            y:
+                Math.random() *
+                height,
+
+            size:
+                Math.random() *
+                2 +
+                0.5,
+
+            speed:
+                Math.random() *
+                0.4 +
+                0.1,
+
+            opacity:
+                Math.random() *
+                0.7 +
+                0.2,
+
+            drift:
+                (Math.random() - 0.5) *
+                0.2
+
+        });
+
+    }
+
 }
+
 
 createParticles();
 
+
 function animateParticles() {
 
-  ctx.clearRect(0, 0, width, height);
-
-  for (const p of particles) {
-
-    p.y -= p.speed;
-    p.x += p.drift;
-
-    if (p.y < -10) {
-      p.y = height + 10;
-      p.x = Math.random() * width;
-    }
-
-    if (p.x < -10) {
-      p.x = width + 10;
-    }
-
-    if (p.x > width + 10) {
-      p.x = -10;
-    }
-
-    ctx.beginPath();
-
-    ctx.arc(
-      p.x,
-      p.y,
-      p.size,
-      0,
-      Math.PI * 2
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
     );
 
-    ctx.fillStyle =
-      `rgba(150,210,255,${p.alpha})`;
 
-    ctx.fill();
-  }
+    particles.forEach(
+        particle => {
 
-  requestAnimationFrame(animateParticles);
+            particle.y -=
+                particle.speed;
+
+            particle.x +=
+                particle.drift;
+
+
+            if (
+                particle.y <
+                -10
+            ) {
+
+                particle.y =
+                    height + 10;
+
+                particle.x =
+                    Math.random() *
+                    width;
+
+            }
+
+
+            if (
+                particle.x <
+                -10
+            ) {
+
+                particle.x =
+                    width + 10;
+
+            }
+
+
+            if (
+                particle.x >
+                width + 10
+            ) {
+
+                particle.x =
+                    -10;
+
+            }
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                particle.x,
+                particle.y,
+                particle.size,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fillStyle =
+                `rgba(
+                    160,
+                    220,
+                    255,
+                    ${particle.opacity}
+                )`;
+
+
+            ctx.fill();
+
+        }
+    );
+
+
+    requestAnimationFrame(
+        animateParticles
+    );
+
 }
+
 
 animateParticles();
 
 
-// ================================
-// LOADER
-// ================================
 
-window.addEventListener("load", () => {
+/* =========================================
+   LOADER
+========================================= */
 
-  setTimeout(() => {
+window.addEventListener(
+    "load",
+    () => {
 
-    document
-      .getElementById("loader")
-      .classList.add("hide");
+        setTimeout(
+            () => {
 
-  }, 1000);
+                const loader =
+                    document.getElementById(
+                        "loader"
+                    );
 
-});
+                loader.classList.add(
+                    "hidden"
+                );
 
+            },
+            1000
+        );
 
-// ================================
-// ENTER BUTTON
-// ================================
-
-const enterBtn =
-  document.getElementById("enterBtn");
-
-const message =
-  document.getElementById("message");
-
-enterBtn.addEventListener("click", () => {
-
-  message.classList.add("show");
-
-  playSound(440, 0.12);
-
-  setTimeout(() => {
-    playSound(660, 0.12);
-  }, 120);
-
-});
-
-
-// ================================
-// CLOSE POPUP
-// ================================
-
-document
-  .getElementById("closeMessage")
-  .addEventListener("click", () => {
-
-    message.classList.remove("show");
-
-  });
-
-
-// ================================
-// START JOURNEY
-// ================================
-
-document
-  .getElementById("startJourney")
-  .addEventListener("click", () => {
-
-    message.classList.remove("show");
-
-    document
-      .getElementById("explore")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
-
-  });
-
-
-// ================================
-// EXPLORE BUTTON
-// ================================
-
-document
-  .getElementById("exploreBtn")
-  .addEventListener("click", () => {
-
-    document
-      .getElementById("explore")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
-
-    playSound(330, 0.08);
-
-  });
-
-
-// ================================
-// CORE MOUSE EFFECT
-// ================================
-
-const core =
-  document.querySelector(".core");
-
-window.addEventListener("mousemove", (event) => {
-
-  if (window.innerWidth < 900) return;
-
-  const x =
-    (event.clientX / window.innerWidth - 0.5) * 20;
-
-  const y =
-    (event.clientY / window.innerHeight - 0.5) * 20;
-
-  core.style.transform =
-    `rotateY(${x}deg) rotateX(${-y}deg)`;
-
-});
-
-
-// ================================
-// SOUND SYSTEM
-// ================================
-
-let soundEnabled = true;
-let audioContext = null;
-
-const soundBtn =
-  document.getElementById("soundBtn");
-
-function playSound(frequency, duration) {
-
-  if (!soundEnabled) return;
-
-  try {
-
-    if (!audioContext) {
-      audioContext =
-        new (window.AudioContext ||
-        window.webkitAudioContext)();
     }
-
-    const oscillator =
-      audioContext.createOscillator();
-
-    const gain =
-      audioContext.createGain();
-
-    oscillator.frequency.value =
-      frequency;
-
-    oscillator.type = "sine";
-
-    gain.gain.setValueAtTime(
-      0.0001,
-      audioContext.currentTime
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      0.04,
-      audioContext.currentTime + 0.01
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      0.0001,
-      audioContext.currentTime + duration
-    );
-
-    oscillator.connect(gain);
-    gain.connect(audioContext.destination);
-
-    oscillator.start();
-
-    oscillator.stop(
-      audioContext.currentTime + duration
-    );
-
-  } catch (error) {
-
-    console.log("Audio unavailable");
-
-  }
-
-}
-
-soundBtn.addEventListener("click", () => {
-
-  soundEnabled = !soundEnabled;
-
-  soundBtn.textContent =
-    soundEnabled ? "🔊" : "🔇";
-
-  if (soundEnabled) {
-    playSound(520, 0.1);
-  }
-
-});
-
-
-// ================================
-// BUTTON SOUND
-// ================================
-
-document
-  .querySelectorAll("button")
-  .forEach(button => {
-
-    button.addEventListener("mouseenter", () => {
-
-      playSound(250, 0.04);
-
-    });
-
-  });
-
-
-// ================================
-// COUNTER
-// ================================
-
-const usersElement =
-  document.getElementById("users");
-
-let currentUsers = 0;
-const targetUsers = 12847;
-
-function animateCounter() {
-
-  if (currentUsers >= targetUsers) {
-
-    usersElement.textContent =
-      targetUsers.toLocaleString();
-
-    return;
-
-  }
-
-  currentUsers += Math.ceil(
-    targetUsers / 100
-  );
-
-  if (currentUsers > targetUsers) {
-    currentUsers = targetUsers;
-  }
-
-  usersElement.textContent =
-    currentUsers.toLocaleString();
-
-  requestAnimationFrame(
-    animateCounter
-  );
-}
-
-setTimeout(
-  animateCounter,
-  1200
 );
 
 
-// ================================
-// CARD REVEAL
-// ================================
 
-const cards =
-  document.querySelectorAll(".card");
+/* =========================================
+   POPUP
+========================================= */
 
-const observer =
-  new IntersectionObserver(
-    entries => {
+const popup =
+    document.getElementById(
+        "popup"
+    );
 
-      entries.forEach(entry => {
 
-        if (entry.isIntersecting) {
+const enterButton =
+    document.getElementById(
+        "enterButton"
+    );
 
-          entry.target.style.opacity = "1";
-          entry.target.style.transform =
-            "translateY(0)";
+
+const closePopup =
+    document.getElementById(
+        "closePopup"
+    );
+
+
+const startButton =
+    document.getElementById(
+        "startButton"
+    );
+
+
+enterButton.addEventListener(
+    "click",
+    () => {
+
+        popup.classList.add(
+            "active"
+        );
+
+        playSound(
+            440,
+            0.12
+        );
+
+        setTimeout(
+            () => {
+
+                playSound(
+                    660,
+                    0.12
+                );
+
+            },
+            130
+        );
+
+    }
+);
+
+
+closePopup.addEventListener(
+    "click",
+    () => {
+
+        popup.classList.remove(
+            "active"
+        );
+
+    }
+);
+
+
+popup.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === popup
+        ) {
+
+            popup.classList.remove(
+                "active"
+            );
 
         }
 
-      });
-
-    },
-    {
-      threshold: 0.15
     }
-  );
+);
 
-cards.forEach(card => {
 
-  card.style.opacity = "0";
-  card.style.transform =
-    "translateY(40px)";
+startButton.addEventListener(
+    "click",
+    () => {
 
-  card.style.transition =
-    "opacity .7s ease, transform .7s ease";
+        popup.classList.remove(
+            "active"
+        );
 
-  observer.observe(card);
 
-});
+        document
+            .getElementById(
+                "discover"
+            )
+            .scrollIntoView({
+                behavior:
+                    "smooth"
+            });
+
+    }
+);
+
+
+
+/* =========================================
+   EXPLORE
+========================================= */
+
+const exploreButton =
+    document.getElementById(
+        "exploreButton"
+    );
+
+
+exploreButton.addEventListener(
+    "click",
+    () => {
+
+        document
+            .getElementById(
+                "discover"
+            )
+            .scrollIntoView({
+                behavior:
+                    "smooth"
+            });
+
+
+        playSound(
+            330,
+            0.08
+        );
+
+    }
+);
+
+
+
+/* =========================================
+   CORE 3D MOUSE EFFECT
+========================================= */
+
+const core =
+    document.getElementById(
+        "core"
+    );
+
+
+window.addEventListener(
+    "mousemove",
+    event => {
+
+        if (
+            window.innerWidth <
+            900
+        ) {
+
+            return;
+
+        }
+
+
+        const x =
+            (
+                event.clientX /
+                window.innerWidth -
+                0.5
+            ) * 20;
+
+
+        const y =
+            (
+                event.clientY /
+                window.innerHeight -
+                0.5
+            ) * 20;
+
+
+        core.style.transform =
+            `
+            rotateY(${x}deg)
+            rotateX(${-y}deg)
+            `;
+
+    }
+);
+
+
+
+/* =========================================
+   SOUND
+========================================= */
+
+let soundEnabled = true;
+
+let audioContext = null;
+
+
+const soundButton =
+    document.getElementById(
+        "soundButton"
+    );
+
+
+function playSound(
+    frequency,
+    duration
+) {
+
+    if (
+        !soundEnabled
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        if (
+            !audioContext
+        ) {
+
+            audioContext =
+                new (
+                    window.AudioContext ||
+                    window.webkitAudioContext
+                )();
+
+        }
+
+
+        const oscillator =
+            audioContext.createOscillator();
+
+
+        const gain =
+            audioContext.createGain();
+
+
+        oscillator.type =
+            "sine";
+
+
+        oscillator.frequency.value =
+            frequency;
+
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            audioContext.currentTime
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.04,
+            audioContext.currentTime +
+            0.01
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            audioContext.currentTime +
+            duration
+        );
+
+
+        oscillator.connect(
+            gain
+        );
+
+
+        gain.connect(
+            audioContext.destination
+        );
+
+
+        oscillator.start();
+
+
+        oscillator.stop(
+            audioContext.currentTime +
+            duration
+        );
+
+    }
+
+    catch (error) {
+
+        console.log(
+            "Audio not available"
+        );
+
+    }
+
+}
+
+
+soundButton.addEventListener(
+    "click",
+    () => {
+
+        soundEnabled =
+            !soundEnabled;
+
+
+        soundButton.textContent =
+            soundEnabled
+                ? "🔊"
+                : "🔇";
+
+
+        if (
+            soundEnabled
+        ) {
+
+            playSound(
+                520,
+                0.1
+            );
+
+        }
+
+    }
+);
+
+
+
+/* =========================================
+   COUNTER
+========================================= */
+
+const counter =
+    document.getElementById(
+        "counter"
+    );
+
+
+let current =
+    0;
+
+
+const target =
+    12847;
+
+
+function updateCounter() {
+
+    if (
+        current >= target
+    ) {
+
+        counter.textContent =
+            target.toLocaleString();
+
+        return;
+
+    }
+
+
+    current +=
+        Math.ceil(
+            target / 100
+        );
+
+
+    if (
+        current > target
+    ) {
+
+        current =
+            target;
+
+    }
+
+
+    counter.textContent =
+        current.toLocaleString();
+
+
+    requestAnimationFrame(
+        updateCounter
+    );
+
+}
+
+
+setTimeout(
+    updateCounter,
+    1200
+);
+
+
+
+/* =========================================
+   BUTTON HOVER SOUND
+========================================= */
+
+document
+    .querySelectorAll(
+        "button"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "mouseenter",
+                () => {
+
+                    playSound(
+                        250,
+                        0.04
+                    );
+
+                }
+            );
+
+        }
+    );
