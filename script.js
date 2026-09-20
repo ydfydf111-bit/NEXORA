@@ -16,6 +16,7 @@ const ctx =
 
 
 let width = 0;
+
 let height = 0;
 
 let particles = [];
@@ -34,13 +35,13 @@ function resizeCanvas() {
 }
 
 
+resizeCanvas();
+
+
 window.addEventListener(
     "resize",
     resizeCanvas
 );
-
-
-resizeCanvas();
 
 
 function createParticles() {
@@ -50,7 +51,7 @@ function createParticles() {
     const amount =
         window.innerWidth < 600
             ? 45
-            : 90;
+            : 100;
 
 
     for (
@@ -71,22 +72,18 @@ function createParticles() {
 
             size:
                 Math.random() *
-                2 +
-                0.5,
+                1.8 +
+                .4,
 
             speed:
                 Math.random() *
-                0.4 +
-                0.1,
+                .35 +
+                .05,
 
             opacity:
                 Math.random() *
-                0.7 +
-                0.2,
-
-            drift:
-                (Math.random() - 0.5) *
-                0.2
+                .7 +
+                .2
 
         });
 
@@ -114,43 +111,17 @@ function animateParticles() {
             particle.y -=
                 particle.speed;
 
-            particle.x +=
-                particle.drift;
-
 
             if (
-                particle.y <
-                -10
+                particle.y < 0
             ) {
 
                 particle.y =
-                    height + 10;
+                    height;
 
                 particle.x =
                     Math.random() *
                     width;
-
-            }
-
-
-            if (
-                particle.x <
-                -10
-            ) {
-
-                particle.x =
-                    width + 10;
-
-            }
-
-
-            if (
-                particle.x >
-                width + 10
-            ) {
-
-                particle.x =
-                    -10;
 
             }
 
@@ -169,8 +140,8 @@ function animateParticles() {
 
             ctx.fillStyle =
                 `rgba(
-                    160,
-                    220,
+                    190,
+                    225,
                     255,
                     ${particle.opacity}
                 )`;
@@ -194,28 +165,116 @@ animateParticles();
 
 
 /* =========================================
-   LOADER
+   CORE MOUSE MOVEMENT
 ========================================= */
 
+const core =
+    document.getElementById(
+        "core"
+    );
+
+
 window.addEventListener(
-    "load",
-    () => {
+    "mousemove",
+    event => {
 
-        setTimeout(
-            () => {
+        if (
+            window.innerWidth < 900
+        ) {
 
-                const loader =
-                    document.getElementById(
-                        "loader"
-                    );
+            return;
 
-                loader.classList.add(
-                    "hidden"
-                );
+        }
 
-            },
-            1000
-        );
+
+        const x =
+            (
+                event.clientX /
+                window.innerWidth -
+                .5
+            ) * 18;
+
+
+        const y =
+            (
+                event.clientY /
+                window.innerHeight -
+                .5
+            ) * 18;
+
+
+        core.style.transform =
+            `
+            rotateY(${x}deg)
+            rotateX(${-y}deg)
+            `;
+
+    }
+);
+
+
+
+/* =========================================
+   PLANET PARALLAX
+========================================= */
+
+const earth =
+    document.getElementById(
+        "earth"
+    );
+
+
+const ringPlanet =
+    document.getElementById(
+        "ringPlanet"
+    );
+
+
+const redPlanet =
+    document.getElementById(
+        "redPlanet"
+    );
+
+
+window.addEventListener(
+    "mousemove",
+    event => {
+
+        const mouseX =
+            event.clientX /
+            window.innerWidth -
+            .5;
+
+
+        const mouseY =
+            event.clientY /
+            window.innerHeight -
+            .5;
+
+
+        if (window.innerWidth > 600) {
+
+            earth.style.marginLeft =
+                `${mouseX * 18}px`;
+
+            earth.style.marginTop =
+                `${mouseY * 18}px`;
+
+
+            ringPlanet.style.marginLeft =
+                `${mouseX * -15}px`;
+
+            ringPlanet.style.marginTop =
+                `${mouseY * -15}px`;
+
+
+            redPlanet.style.marginLeft =
+                `${mouseX * 25}px`;
+
+            redPlanet.style.marginTop =
+                `${mouseY * 25}px`;
+
+        }
 
     }
 );
@@ -258,17 +317,19 @@ enterButton.addEventListener(
             "active"
         );
 
+
         playSound(
             440,
-            0.12
+            .12
         );
+
 
         setTimeout(
             () => {
 
                 playSound(
                     660,
-                    0.12
+                    .12
                 );
 
             },
@@ -323,8 +384,10 @@ startButton.addEventListener(
                 "discover"
             )
             .scrollIntoView({
+
                 behavior:
                     "smooth"
+
             });
 
     }
@@ -333,86 +396,98 @@ startButton.addEventListener(
 
 
 /* =========================================
-   EXPLORE
+   EXPLORE BUTTON
 ========================================= */
 
-const exploreButton =
-    document.getElementById(
+document
+    .getElementById(
         "exploreButton"
-    );
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            document
+                .getElementById(
+                    "discover"
+                )
+                .scrollIntoView({
+
+                    behavior:
+                        "smooth"
+
+                });
 
 
-exploreButton.addEventListener(
-    "click",
-    () => {
-
-        document
-            .getElementById(
-                "discover"
-            )
-            .scrollIntoView({
-                behavior:
-                    "smooth"
-            });
-
-
-        playSound(
-            330,
-            0.08
-        );
-
-    }
-);
-
-
-
-/* =========================================
-   CORE 3D MOUSE EFFECT
-========================================= */
-
-const core =
-    document.getElementById(
-        "core"
-    );
-
-
-window.addEventListener(
-    "mousemove",
-    event => {
-
-        if (
-            window.innerWidth <
-            900
-        ) {
-
-            return;
+            playSound(
+                330,
+                .08
+            );
 
         }
+    );
 
 
-        const x =
-            (
-                event.clientX /
-                window.innerWidth -
-                0.5
-            ) * 20;
+
+/* =========================================
+   COUNTER
+========================================= */
+
+const counter =
+    document.getElementById(
+        "counter"
+    );
 
 
-        const y =
-            (
-                event.clientY /
-                window.innerHeight -
-                0.5
-            ) * 20;
+let number = 0;
+
+const target = 12847;
 
 
-        core.style.transform =
-            `
-            rotateY(${x}deg)
-            rotateX(${-y}deg)
-            `;
+function counterAnimation() {
+
+    if (
+        number >= target
+    ) {
+
+        counter.textContent =
+            target.toLocaleString();
+
+        return;
 
     }
+
+
+    number +=
+        Math.ceil(
+            target / 100
+        );
+
+
+    if (
+        number > target
+    ) {
+
+        number =
+            target;
+
+    }
+
+
+    counter.textContent =
+        number.toLocaleString();
+
+
+    requestAnimationFrame(
+        counterAnimation
+    );
+
+}
+
+
+setTimeout(
+    counterAnimation,
+    1000
 );
 
 
@@ -462,11 +537,13 @@ function playSound(
 
 
         const oscillator =
-            audioContext.createOscillator();
+            audioContext
+                .createOscillator();
 
 
         const gain =
-            audioContext.createGain();
+            audioContext
+                .createGain();
 
 
         oscillator.type =
@@ -478,20 +555,20 @@ function playSound(
 
 
         gain.gain.setValueAtTime(
-            0.0001,
+            .0001,
             audioContext.currentTime
         );
 
 
         gain.gain.exponentialRampToValueAtTime(
-            0.04,
+            .04,
             audioContext.currentTime +
-            0.01
+            .01
         );
 
 
         gain.gain.exponentialRampToValueAtTime(
-            0.0001,
+            .0001,
             audioContext.currentTime +
             duration
         );
@@ -520,7 +597,7 @@ function playSound(
     catch (error) {
 
         console.log(
-            "Audio not available"
+            "Audio unavailable"
         );
 
     }
@@ -548,7 +625,7 @@ soundButton.addEventListener(
 
             playSound(
                 520,
-                0.1
+                .1
             );
 
         }
@@ -559,73 +636,7 @@ soundButton.addEventListener(
 
 
 /* =========================================
-   COUNTER
-========================================= */
-
-const counter =
-    document.getElementById(
-        "counter"
-    );
-
-
-let current =
-    0;
-
-
-const target =
-    12847;
-
-
-function updateCounter() {
-
-    if (
-        current >= target
-    ) {
-
-        counter.textContent =
-            target.toLocaleString();
-
-        return;
-
-    }
-
-
-    current +=
-        Math.ceil(
-            target / 100
-        );
-
-
-    if (
-        current > target
-    ) {
-
-        current =
-            target;
-
-    }
-
-
-    counter.textContent =
-        current.toLocaleString();
-
-
-    requestAnimationFrame(
-        updateCounter
-    );
-
-}
-
-
-setTimeout(
-    updateCounter,
-    1200
-);
-
-
-
-/* =========================================
-   BUTTON HOVER SOUND
+   BUTTON SOUNDS
 ========================================= */
 
 document
@@ -641,7 +652,7 @@ document
 
                     playSound(
                         250,
-                        0.04
+                        .04
                     );
 
                 }
