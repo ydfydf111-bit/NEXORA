@@ -1,166 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#050510">
-  <title>NEXORA — Enter the Future</title>
+    <meta charset="UTF-8">
 
-  <link rel="stylesheet" href="style.css">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta name="theme-color" content="#050510">
+
+    <title>NEXORA</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-  <div id="loader">
-    <div class="loader-ring"></div>
-    <div class="loader-text">NEXORA</div>
-  </div>
+    <!-- LOADING SCREEN -->
+    <div id="loader">
+        <div class="loader-circle"></div>
 
-  <canvas id="particles"></canvas>
+        <div class="loader-title">
+            NEXORA
+        </div>
 
-  <div class="grid"></div>
-
-  <header>
-    <div class="logo">
-      <span>N</span>EXORA
+        <div class="loader-status">
+            INITIALIZING SYSTEM...
+        </div>
     </div>
 
-    <button id="soundBtn" class="icon-btn" aria-label="Sound">
-      🔊
-    </button>
-  </header>
 
-  <main>
+    <!-- PARTICLES -->
+    <canvas id="particles"></canvas>
 
-    <section class="hero">
 
-      <div class="orb orb1"></div>
-      <div class="orb orb2"></div>
+    <!-- BACKGROUND -->
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
 
-      <div class="content">
+    <div class="grid"></div>
 
-        <div class="badge">
-          ✦ SYSTEM ONLINE
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="logo">
+            <span>N</span>EXORA
         </div>
 
-        <h1>
-          ENTER THE
-          <strong>FUTURE</strong>
-        </h1>
+        <button
+            id="soundButton"
+            class="sound-button"
+            type="button"
+        >
+            🔊
+        </button>
 
-        <p>
-          Welcome to NEXORA — an interactive digital universe
-          designed to make the impossible feel real.
-        </p>
+    </header>
 
-        <div class="buttons">
 
-          <button id="enterBtn" class="main-btn">
-            <span>ENTER NEXORA</span>
-            <b>→</b>
-          </button>
+    <!-- MAIN -->
+    <main>
 
-          <button id="exploreBtn" class="second-btn">
-            EXPLORE
-          </button>
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="system-badge">
+                    <span class="status-dot"></span>
+                    SYSTEM ONLINE
+                </div>
+
+
+                <h1>
+                    ENTER THE
+                    <span>FUTURE</span>
+                </h1>
+
+
+                <p class="description">
+                    Welcome to NEXORA — an interactive
+                    digital universe designed to make
+                    the impossible feel real.
+                </p>
+
+
+                <div class="buttons">
+
+                    <button
+                        id="enterButton"
+                        class="primary-button"
+                        type="button"
+                    >
+                        ENTER NEXORA
+                        <span>→</span>
+                    </button>
+
+
+                    <button
+                        id="exploreButton"
+                        class="secondary-button"
+                        type="button"
+                    >
+                        EXPLORE
+                    </button>
+
+                </div>
+
+
+                <!-- STATS -->
+                <div class="stats">
+
+                    <div class="stat">
+                        <strong id="counter">
+                            0
+                        </strong>
+
+                        <span>
+                            EXPLORERS
+                        </span>
+                    </div>
+
+
+                    <div class="stat">
+                        <strong>
+                            ∞
+                        </strong>
+
+                        <span>
+                            POSSIBILITIES
+                        </span>
+                    </div>
+
+
+                    <div class="stat">
+                        <strong>
+                            24/7
+                        </strong>
+
+                        <span>
+                            ONLINE
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- 3D CORE -->
+            <div
+                class="core-container"
+                id="core"
+            >
+
+                <div class="core-ring ring-one"></div>
+
+                <div class="core-ring ring-two"></div>
+
+                <div class="core-ring ring-three"></div>
+
+
+                <div class="core-center">
+
+                    <div class="core-letter">
+                        N
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- DISCOVER -->
+        <section
+            id="discover"
+            class="discover"
+        >
+
+            <div class="section-heading">
+
+                <span>
+                    DISCOVER
+                </span>
+
+                <h2>
+                    A NEW DIGITAL WORLD
+                </h2>
+
+            </div>
+
+
+            <div class="cards">
+
+                <!-- CARD 1 -->
+                <article class="card">
+
+                    <div class="card-icon">
+                        ◈
+                    </div>
+
+                    <h3>
+                        NEURAL
+                    </h3>
+
+                    <p>
+                        Intelligent systems designed
+                        to transform the way you
+                        interact with technology.
+                    </p>
+
+                    <div class="card-line"></div>
+
+                </article>
+
+
+                <!-- CARD 2 -->
+                <article class="card">
+
+                    <div class="card-icon">
+                        ✦
+                    </div>
+
+                    <h3>
+                        QUANTUM
+                    </h3>
+
+                    <p>
+                        Experience a world built around
+                        speed, precision and limitless
+                        possibilities.
+                    </p>
+
+                    <div class="card-line"></div>
+
+                </article>
+
+
+                <!-- CARD 3 -->
+                <article class="card">
+
+                    <div class="card-icon">
+                        ◇
+                    </div>
+
+                    <h3>
+                        BEYOND
+                    </h3>
+
+                    <p>
+                        Explore experiences that go
+                        beyond ordinary digital
+                        interfaces.
+                    </p>
+
+                    <div class="card-line"></div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- POPUP -->
+    <div
+        id="popup"
+        class="popup"
+    >
+
+        <div class="popup-box">
+
+            <button
+                id="closePopup"
+                class="close-popup"
+                type="button"
+            >
+                ×
+            </button>
+
+
+            <div class="popup-logo">
+                N
+            </div>
+
+
+            <h2>
+                WELCOME TO NEXORA
+            </h2>
+
+
+            <p>
+                The journey has officially begun.
+            </p>
+
+
+            <button
+                id="startButton"
+                class="primary-button"
+                type="button"
+            >
+                START JOURNEY
+                <span>→</span>
+            </button>
 
         </div>
 
-        <div class="stats">
-          <div>
-            <strong id="users">0</strong>
-            <span>EXPLORERS</span>
-          </div>
-
-          <div>
-            <strong>∞</strong>
-            <span>POSSIBILITIES</span>
-          </div>
-
-          <div>
-            <strong>24/7</strong>
-            <span>ONLINE</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="core">
-
-        <div class="core-ring ring1"></div>
-        <div class="core-ring ring2"></div>
-        <div class="core-ring ring3"></div>
-
-        <div class="core-center">
-          <div class="core-symbol">N</div>
-        </div>
-
-      </div>
-
-    </section>
-
-    <section id="explore" class="explore-section">
-
-      <div class="section-title">
-        <span>DISCOVER</span>
-        <h2>A NEW DIGITAL WORLD</h2>
-      </div>
-
-      <div class="cards">
-
-        <article class="card">
-          <div class="card-icon">◈</div>
-          <h3>NEURAL</h3>
-          <p>
-            Intelligent systems designed to transform
-            the way you interact with technology.
-          </p>
-        </article>
-
-        <article class="card">
-          <div class="card-icon">✦</div>
-          <h3>QUANTUM</h3>
-          <p>
-            Experience a world built around speed,
-            precision and limitless possibilities.
-          </p>
-        </article>
-
-        <article class="card">
-          <div class="card-icon">◇</div>
-          <h3>BEYOND</h3>
-          <p>
-            Explore experiences that go beyond
-            ordinary digital interfaces.
-          </p>
-        </article>
-
-      </div>
-
-    </section>
-
-  </main>
-
-  <div id="message" class="message">
-    <div class="message-box">
-      <button id="closeMessage">×</button>
-      <div class="big-n">N</div>
-      <h2>WELCOME TO NEXORA</h2>
-      <p>
-        The journey has officially begun.
-      </p>
-      <button id="startJourney" class="main-btn">
-        START JOURNEY →
-      </button>
     </div>
-  </div>
 
-  <footer>
-    <span>© 2026 NEXORA</span>
-    <span>BUILT FOR THE FUTURE</span>
-  </footer>
 
-  <script src="script.js"></script>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <span>
+            © 2026 NEXORA
+        </span>
+
+        <span>
+            BUILT FOR THE FUTURE
+        </span>
+
+    </footer>
+
+
+
+    <!-- JAVASCRIPT -->
+    <script src="./script.js"></script>
 
 </body>
 </html>
